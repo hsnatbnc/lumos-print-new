@@ -1,0 +1,22 @@
+{
+  "name": "lumos-print-service",
+  "version": "2.0.0",
+  "description": "High-performance async proxy for Lumos POS print service — Node.js/Fastify replacement for the PHP-FPM polling proxy.",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "dependencies": {
+    "@fastify/cors": "^10.0.2",
+    "@fastify/rate-limit": "^10.2.2",
+    "fastify": "^5.3.2",
+    "fastify-plugin": "^5.1.0",
+    "pino-pretty": "^13.0.0",
+    "undici": "^7.4.0"
+  }
+}
