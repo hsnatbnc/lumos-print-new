@@ -22,6 +22,8 @@ const pool = new Pool(UPSTREAM_ORIGIN, {
   pipelining: 1,
   keepAliveTimeout: 30_000,   // 30 s — keep idle sockets alive
   keepAliveMaxTimeout: 60_000,
+  headersTimeout: 10_000,     // 10 s — fail fast if upstream hangs on headers
+  bodyTimeout: 15_000,        // 15 s — fail fast if upstream hangs mid-body
   connect: {
     rejectUnauthorized: true,  // always verify TLS
   },
