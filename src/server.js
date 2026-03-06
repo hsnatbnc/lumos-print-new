@@ -47,11 +47,13 @@ await fastify.register(cors, {
 })
 
 // ── Rate limiting ─────────────────────────────────────────────────────────────
-// Protects against runaway clients hammering pending_orders.php.
-// 120 req/min per IP = 2 req/s — generous for a printer, tight for abuse.
+// 50 restaurants × 4 endpoints × 1 req/2s = ~2 req/s per IP, ~100 req/s total.
+// 600 req/min (10/s) per IP gives 5x headroom while catching runaway loops.
+// Uses X-Real-IP from nginx since all requests arrive from 127.0.0.1 otherwise.
 await fastify.register(rateLimit, {
-  max: 120,
+  max: 600,
   timeWindow: '1 minute',
+  keyGenerator: (request) => request.headers['x-real-ip'] || request.ip,
   errorResponseBuilder: (_request, context) => ({
     success: false,
     message: `Rate limit exceeded. Retry after ${context.after}.`,

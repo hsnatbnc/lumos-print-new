@@ -18,7 +18,7 @@ const UPSTREAM_ORIGIN = 'https://lumosapi.com'
 // Keep up to 10 sockets open to the upstream at all times.
 // Tune this number based on observed concurrency.
 const pool = new Pool(UPSTREAM_ORIGIN, {
-  connections: 10,
+  connections: 20,
   pipelining: 1,
   keepAliveTimeout: 30_000,   // 30 s — keep idle sockets alive
   keepAliveMaxTimeout: 60_000,
