@@ -35,8 +35,8 @@ module.exports = {
       kill_timeout: 5000,
 
       // Logging
-      out_file: '/var/log/lumos-print/out.log',
-      error_file: '/var/log/lumos-print/error.log',
+      out_file: './logs/out.log',
+      error_file: './logs/error.log',
       merge_logs: true,
       log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
     },
