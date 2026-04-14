@@ -13,11 +13,17 @@
  *    No process spawning, no repeated handshakes — pure I/O multiplexing
  */
 
+import { readFileSync } from 'fs'
+import { fileURLToPath } from 'url'
+import { dirname, join } from 'path'
 import Fastify from 'fastify'
 import cors from '@fastify/cors'
 import rateLimit from '@fastify/rate-limit'
 import upstreamPlugin from './plugins/upstream.js'
 import proxyRoutes from './routes/proxy.js'
+
+const __dirname = dirname(fileURLToPath(import.meta.url))
+const indexHtml = readFileSync(join(__dirname, '../public/index.html'))
 
 const PORT = parseInt(process.env.PORT ?? '3000', 10)
 const HOST = process.env.HOST ?? '0.0.0.0'
@@ -65,6 +71,11 @@ await fastify.register(upstreamPlugin)
 
 // ── Proxy routes ──────────────────────────────────────────────────────────────
 await fastify.register(proxyRoutes)
+
+// ── Homepage ──────────────────────────────────────────────────────────────────
+fastify.get('/', async (_request, reply) => {
+  return reply.type('text/html').send(indexHtml)
+})
 
 // ── Health check ──────────────────────────────────────────────────────────────
 fastify.get('/health', { logLevel: 'silent' }, async (request) => {

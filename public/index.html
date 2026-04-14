@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumos Sales | Horeca'nın Geleceği</title>
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Lumos Sales | Horeca'nın Geleceği">
+    <meta property="og:locale" content="tr_TR">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        bg: {
+                            main: '#000000',
+                            card: '#1c1c1e',
+                        },
+                        accent: {
+                            lumos: '#432dd7',
+                            lumosLight: '#6366f1'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #000000;
+            color: #f5f5f7;
+            -webkit-font-smoothing: antialiased;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Full-screen section styles */
+        .presentation-section {
+            min-height: 100vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+            position: relative;
+            flex-direction: column;
+        }
+
+        html {
+            scroll-snap-type: y mandatory;
+        }
+
+        /* Apple Style Glass Effect */
+        .apple-glass {
+            background: rgba(28, 28, 30, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .apple-glass:hover {
+            background: rgba(44, 44, 46, 0.8);
+            border-color: rgba(67, 45, 215, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        /* Glow Effects */
+        .hero-glow {
+            position: absolute;
+            width: 100%;
+            height: 600px;
+            background: radial-gradient(circle, rgba(67, 45, 215, 0.20) 0%, rgba(0, 0, 0, 0) 70%);
+            top: -200px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #fff 0%, #a1a1aa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .status-dot {
+            box-shadow: 0 0 10px currentColor;
+        }
+
+        /* Feature row - full screen height */
+        .feature-section {
+            min-height: 100vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+            padding: 4rem 0;
+            flex-direction: column;
+        }
+
+        .feature-row {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
+            height: 100%;
+        }
+
+        .feature-row.reverse {
+            direction: rtl;
+        }
+
+        .feature-row.reverse > * {
+            direction: ltr;
+        }
+
+        .feature-content {
+            padding: 2rem;
+            width: 100%;
+            margin-bottom: 0rem;
+        }
+
+        .feature-content h3 {
+            margin-bottom: 1rem;
+        }
+
+        .feature-content p {
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .feature-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 2rem;
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto 3rem auto;
+        }
+
+        .feature-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .feature-item i {
+            font-size: 2rem;
+            color: #432dd7;
+        }
+
+        .feature-item span {
+            font-size: 0.95rem;
+            color: #d4d4d8;
+        }
+
+        .feature-images {
+            position: relative;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            perspective: 1000px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .feature-image {
+            position: relative;
+            width: 100%;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(67, 45, 215, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .feature-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        .feature-image:nth-child(1) {
+            transform: translateY(0) translateX(0) scale(1);
+            z-index: 3;
+            max-width: 95%;
+        }
+
+        .feature-image:nth-child(2) {
+            position: absolute;
+            transform: translateY(30px) translateX(40px) scale(0.80);
+            z-index: 2;
+            opacity: 0.6;
+            max-width: 70%;
+        }
+
+        .feature-images:hover .feature-image:nth-child(1) {
+            transform: translateY(-15px) translateX(-15px) scale(1.03);
+        }
+
+        .feature-images:hover .feature-image:nth-child(2) {
+            transform: translateY(40px) translateX(50px) scale(0.78);
+        }
+
+        /* Modules grid */
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            width: 100%;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .feature-row {
+                flex-direction: column;
+            }
+
+            .feature-row.reverse {
+                direction: ltr;
+            }
+
+            .feature-items {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-images {
+                min-height: auto;
+            }
+
+            .feature-image:nth-child(1) {
+                max-width: 100%;
+            }
+
+            .feature-image:nth-child(2) {
+                display: none;
+            }
+
+            .feature-section {
+                padding: 2rem 0;
+            }
+        }
+
+        /* Smooth transitions */
+        section {
+            animation: fadeIn 0.8s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Magnetic Scroll Styles */
+        .presentation-section,
+        .feature-section {
+            position: relative;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Section 1: Hero / Başlık -->
+    <section class="presentation-section relative">
+        <div class="hero-glow"></div>
+
+        <div class="max-w-5xl mx-auto px-6 text-center">
+            <div class="flex items-center justify-center gap-8 md:gap-12 mb-12 animate__animated animate__fadeInDown">
+                <div class="relative group bg-white rounded-2xl p-4">
+                    <img src="https://lumossales.net/img/lumos.png" alt="Lumos Logo" class="h-24 md:h-32 w-auto object-contain drop-shadow-2xl">
+                </div>
+            </div>
+
+            <h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-6 mx-auto animate__animated animate__fadeInUp">
+                <span class="text-gradient">Horeca'nın Geleceği.</span>
+            </h1>
+
+            <p
+                class="text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto leading-relaxed font-light mb-12 animate__animated animate__fadeInUp animate__delay-500ms">
+                Kullanıcı alışkanlıklarını değiştiren hız ve yenilikçi çözümlerle horeca sektörüne değer katıyoruz.
+            </p>
+
+            <div
+                class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-2xl animate__animated animate__fadeInUp animate__delay-500ms">
+
+                <div class="apple-glass p-5 rounded-2xl flex items-center gap-4 text-left cursor-default !h-auto">
+                    <div class="relative flex h-3 w-3">
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500 status-dot"></span>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-semibold text-white tracking-wide uppercase">Mevcut Versiyon</h3>
+                        <p class="text-xs text-gray-400 mt-1">800+ işletmede aktif, stabil ve hızlı.</p>
+                    </div>
+                </div>
+
+                <div
+                    class="apple-glass p-5 rounded-2xl flex items-center gap-4 text-left border-accent-lumos/50 cursor-default !h-auto">
+                    <div class="relative flex h-3 w-3">
+                        <span
+                            class="animate-pulse absolute inline-flex h-full w-full rounded-full bg-accent-lumos opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-3 w-3 bg-accent-lumos status-dot"></span>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-semibold text-white tracking-wide uppercase text-accent-lumos">Yeni Nesil
+                            Lumos</h3>
+                        <p class="text-xs text-gray-400 mt-1">Geliştirme aşamasında. Modern arayüz, AI destekli,
+                            ölçeklenebilir altyapısı ile büyümeye hazır.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Horeca'nın Geleceği -->
+    <section class="presentation-section">
+        <div class="max-w-5xl mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl font-bold mb-12 text-center text-white">Horeca'nın Geleceği</h2>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6 text-gray-400 text-lg leading-relaxed font-light">
+                    <p>Restoran ve otel işletmeleri, dijital dönüşümün merkezinde yer almaktadır. Müşteri beklentileri, operasyonel verimlilik ve veri-odaklı karar alma, başarının anahtarlarıdır.</p>
+                    
+                    <p>Lumos Sales, horeca sektörünün bu değişen ihtiyaçlarını anlayarak, işletmeleri geleceğe hazırlamaktadır. Hız, basitlik ve güvenilirlik ilkeleriyle, her boyuttaki işletmeye ölçeklenebilir çözümler sunmaktadır.</p>
+                    
+                    <p>Teknoloji, insan odaklı tasarımla birleştiğinde, gerçek değer ortaya çıkar. Lumos Sales, bu felsefesiyle horeca sektörünün geleceğini şekillendirmektedir.</p>
+                </div>
+
+                <div class="relative">
+                    <div class="apple-glass p-10 rounded-3xl text-center relative overflow-hidden group">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-accent-lumos/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-500">
+                        </div>
+                        <i class="fa-solid fa-rocket text-5xl text-accent-lumos mb-6 block"></i>
+                        <h3 class="text-2xl font-bold text-white mb-4">Geleceğe Hazır Teknoloji</h3>
+                        <p class="text-sm text-gray-400">Yapay zeka, veri analitikleri ve bulut teknolojileriyle horeca sektörünü dönüştürüyoruz.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: Lumos Hakkında -->
+    <section class="presentation-section">
+        <div class="max-w-5xl mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl font-bold mb-12 text-center text-white">Lumos Hakkında</h2>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="animate__animated animate__fadeInLeft">
+                    <div class="apple-glass p-10 rounded-3xl">
+                        <i class="fa-solid fa-bolt text-4xl text-accent-lumos mb-6 block"></i>
+                        <h3 class="text-2xl font-bold text-white mb-4">"Az tuş, Temiz işlem, Hızlı süreç"</h3>
+                        <p class="text-sm text-gray-400">Daha az tuş içeren kullanıcı arayüzünü sonuca götüren anlaşılabilir ekranlar ve detaylı raporlama fonksiyonları ile hedef mottosunu kaybetmeden gelişen Lumos Sales bir kullanım alışkanlığı yaratmayı hedeflemektedir.</p>
+                    </div>
+                </div>
+
+                <div class="space-y-6 text-gray-400 text-lg leading-relaxed font-light">
+                    <p>Lumos Sales 2018'de kolay arayüz, neredeyse eğitim gerektirmeyen yönetim paneli ve israftan uzak tuş kullanımı ile Türkiye piyasasında satışa çıkmış referans satışları ve kurumsallaşmaya ön ayak olan ek altyapıları ile yaygınlaşmış bir adisyon programıdır.</p>
+                    
+                    <p>Ürünün girişinden satışına kadar tüm yolculuğunu "satıcı" gözüyle irdeleyen, garson ve kasiyer kullanıcıları özelinde özetleyen pratik raporlar ile öne çıkmıştır.</p>
+                    
+                    <p>Gelişen süreç ile satış yönetiminin tespiti konusunda adım adım yeni yöntemleri Türkiye geneline yayılan müşterilerinin kullanıcı deneyimlerine dayanarak geliştiren Lumos Sales, benzersizliğini tarzından kopmayan güncellemelere borçludur.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: Neden Lumos Sales? - Title -->
+    <section class="presentation-section">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="text-5xl md:text-6xl font-bold text-white mb-6">Neden Lumos Sales?</h2>
+            <p class="text-xl text-gray-400 leading-relaxed">Sektörde 6+ yıldır güvenilir hizmet veren, 800+ işletmenin tercih ettiği ve 24/7 teknik destek ile işletmenizin yanında olan çözüm ortağı.</p>
+        </div>
+    </section>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 5: Lumos Modülleri -->
+    <section class="presentation-section">
+        <div class="max-w-6xl mx-auto px-6 w-full">
+            <h2 class="text-4xl md:text-5xl font-bold mb-12 text-center text-white">Lumos Modülleri</h2>
+
+            <div class="modules-grid">
+
+                <div class="apple-glass rounded-2xl p-6 animate__animated animate__fadeInUp">
+                    <div class="flex items-center gap-3 mb-4 border-b border-white/10 pb-4">
+                        <i class="fa-solid fa-cash-register text-accent-lumos text-xl"></i>
+                        <h3 class="text-lg font-bold text-white">POS Satış Ekranı</h3>
+                    </div>
+                    <div class="space-y-3 text-sm text-gray-400">
+                        <p><strong class="text-gray-200">Genel Tanım:</strong> Restoran operasyonları için optimize edilmiş satış arayüzü.</p>
+                        <p><strong class="text-gray-200">Özellikler:</strong> Masa yönetimi, sipariş yönetimi, satış türleri.</p>
+                    </div>
+                </div>
+
+                <div class="apple-glass rounded-2xl p-6 animate__animated animate__fadeInUp animate__delay-1s">
+                    <div class="flex items-center gap-3 mb-4 border-b border-white/10 pb-4">
+                        <i class="fa-solid fa-utensils text-accent-lumos text-xl"></i>
+                        <h3 class="text-lg font-bold text-white">Menü ve Ürün Yönetimi</h3>
+                    </div>
+                    <div class="space-y-3 text-sm text-gray-400">
+                        <p><strong class="text-gray-200">Genel Tanım:</strong> Ürün ve menü yönetimi.</p>
+                        <p><strong class="text-gray-200">Özellikler:</strong> Ürün tanımlama, kategori yönetimi, fiyat yönetimi.</p>
+                    </div>
+                </div>
+
+                <div class="apple-glass rounded-2xl p-6 animate__animated animate__fadeInUp animate__delay-2s">
+                    <div class="flex items-center gap-3 mb-4 border-b border-white/10 pb-4">
+                        <i class="fa-solid fa-boxes-stacked text-accent-lumos text-xl"></i>
+                        <h3 class="text-lg font-bold text-white">Stok Yönetimi</h3>
+                    </div>
+                    <div class="space-y-3 text-sm text-gray-400">
+                        <p><strong class="text-gray-200">Genel Tanım:</strong> Hammadde stok takibi.</p>
+                        <p><strong class="text-gray-200">Özellikler:</strong> Otomatik stok düşümü, fire takibi, stok transferleri.</p>
+                    </div>
+                </div>
+
+                <div class="apple-glass rounded-2xl p-6 animate__animated animate__fadeInUp">
+                    <div class="flex items-center gap-3 mb-4 border-b border-white/10 pb-4">
+                        <i class="fa-solid fa-calculator text-accent-lumos text-xl"></i>
+                        <h3 class="text-lg font-bold text-white">Reçete ve Maliyet</h3>
+                    </div>
+                    <div class="space-y-3 text-sm text-gray-400">
+                        <p><strong class="text-gray-200">Genel Tanım:</strong> Ürün reçeteleri ve maliyet hesabı.</p>
+                        <p><strong class="text-gray-200">Özellikler:</strong> Reçete tanımlama, gerçek maliyet, kârlılık takibi.</p>
+                    </div>
+                </div>
+
+                <div class="apple-glass rounded-2xl p-6 animate__animated animate__fadeInUp animate__delay-1s">
+                    <div class="flex items-center gap-3 mb-4 border-b border-white/10 pb-4">
+                        <i class="fa-solid fa-users-gear text-accent-lumos text-xl"></i>
+                        <h3 class="text-lg font-bold text-white">Personel ve Yetkilendirme</h3>
+                    </div>
+                    <div class="space-y-3 text-sm text-gray-400">
+                        <p><strong class="text-gray-200">Genel Tanım:</strong> Personel yönetimi ve yetkilendirme.</p>
+                        <p><strong class="text-gray-200">Özellikler:</strong> Kullanıcı yönetimi, rol bazlı yetki, şube bazlı yetki.</p>
+                    </div>
+                </div>
+
+                <div class="apple-glass rounded-2xl p-6 animate__animated animate__fadeInUp animate__delay-2s">
+                    <div class="flex items-center gap-3 mb-4 border-b border-white/10 pb-4">
+                        <i class="fa-solid fa-store text-accent-lumos text-xl"></i>
+                        <h3 class="text-lg font-bold text-white">Şube ve Operasyon</h3>
+                    </div>
+                    <div class="space-y-3 text-sm text-gray-400">
+                        <p><strong class="text-gray-200">Genel Tanım:</strong> Çok şubeli yapı yönetimi.</p>
+                        <p><strong class="text-gray-200">Özellikler:</strong> Çok şubeli yapı, şube bazlı ayarlar, franchise uyumlu.</p>
+                    </div>
+                </div>
+
+                <div class="apple-glass rounded-2xl p-6 animate__animated animate__fadeInUp">
+                    <div class="flex items-center gap-3 mb-4 border-b border-white/10 pb-4">
+                        <i class="fa-solid fa-chart-pie text-accent-lumos text-xl"></i>
+                        <h3 class="text-lg font-bold text-white">Raporlama ve Analitik</h3>
+                    </div>
+                    <div class="space-y-3 text-sm text-gray-400">
+                        <p><strong class="text-gray-200">Genel Tanım:</strong> Detaylı raporlar ve analitik.</p>
+                        <p><strong class="text-gray-200">Özellikler:</strong> Satış raporları, ürün performansı, dışa aktarım.</p>
+                    </div>
+                </div>
+
+                <div class="apple-glass rounded-2xl p-6 animate__animated animate__fadeInUp animate__delay-1s">
+                    <div class="flex items-center gap-3 mb-4 border-b border-white/10 pb-4">
+                        <i class="fa-solid fa-wallet text-accent-lumos text-xl"></i>
+                        <h3 class="text-lg font-bold text-white">Kasa ve Finans</h3>
+                    </div>
+                    <div class="space-y-3 text-sm text-gray-400">
+                        <p><strong class="text-gray-200">Genel Tanım:</strong> Kasa ve finansal işlemler.</p>
+                        <p><strong class="text-gray-200">Özellikler:</strong> Kasa açma/kapama, ödeme yöntemleri, iade işlemleri.</p>
+                    </div>
+                </div>
+
+                <div class="apple-glass rounded-2xl p-6 animate__animated animate__fadeInUp animate__delay-2s">
+                    <div class="flex items-center gap-3 mb-4 border-b border-white/10 pb-4">
+                        <i class="fa-solid fa-print text-accent-lumos text-xl"></i>
+                        <h3 class="text-lg font-bold text-white">Donanım ve Entegrasyon</h3>
+                    </div>
+                    <div class="space-y-3 text-sm text-gray-400">
+                        <p><strong class="text-gray-200">Genel Tanım:</strong> Donanım desteği ve entegrasyonlar.</p>
+                        <p><strong class="text-gray-200">Özellikler:</strong> POS donanım, yazarkasa, harici sistem entegrasyonları.</p>
+                    </div>
+                </div>
+
+                <div class="apple-glass rounded-2xl p-6 animate__animated animate__fadeInUp">
+                    <div class="flex items-center gap-3 mb-4 border-b border-white/10 pb-4">
+                        <i class="fa-solid fa-server text-accent-lumos text-xl"></i>
+                        <h3 class="text-lg font-bold text-white">Yönetim ve Sistem</h3>
+                    </div>
+                    <div class="space-y-3 text-sm text-gray-400">
+                        <p><strong class="text-gray-200">Genel Tanım:</strong> Merkezi yönetim ve sistem.</p>
+                        <p><strong class="text-gray-200">Özellikler:</strong> Merkezi yönetim paneli, veri güvenliği, ölçeklenebilir altyapı.</p>
+                    </div>
+                </div>
+
+                <div
+                    class="rounded-2xl p-6 bg-gradient-to-br from-accent-lumos/20 to-black border border-accent-lumos/40 relative overflow-hidden animate__animated animate__fadeInUp animate__delay-1s">
+                    <div
+                        class="absolute -right-2 top-4 bg-accent-lumos text-white text-[10px] px-3 py-1 rounded-l-full font-bold uppercase tracking-wider shadow-[0_0_10px_rgba(67,45,215,0.5)]">
+                        YENİ </div>
+                    <div class="flex items-center gap-3 mb-4 border-b border-white/10 pb-4">
+                        <i class="fa-solid fa-wand-magic-sparkles text-white text-xl"></i>
+                        <h3 class="text-lg font-bold text-white">Gelişmiş Modüller</h3>
+                    </div>
+                    <div class="space-y-3 text-sm text-gray-300">
+                        <p><strong class="text-white">Gelişmiş Kampanya Modülü:</strong> Ürün, zaman ve müşteri bazlı kampanya yönetimi.</p>
+                        <p><strong class="text-white">AI Destekli Analitik:</strong> Satış, stok ve talep tahmini.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 6: Kapanış -->
+    <section class="presentation-section">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            
+            <div class="flex items-center justify-center gap-8 md:gap-12 mb-12 animate__animated animate__fadeInDown">
+                <div class="relative group bg-white rounded-2xl p-4">
+                    <img src="https://lumossales.net/img/lumos.png" alt="Lumos Logo" class="h-24 md:h-32 w-auto object-contain drop-shadow-2xl">
+                </div>
+            </div>
+
+            <h2 class="text-5xl md:text-6xl font-bold mb-6 text-white">Horeca'nın Geleceğini Birlikte Şekillendirelim</h2>
+
+            <p class="text-xl text-gray-400 mb-12 leading-relaxed">
+                Lumos Sales ile işletmenizi dijital dönüşüme hazırlayın. Hız, basitlik ve güvenilirlikle başarıya ulaşın.
+            </p>
+
+            </div>
+
+            <div class="mt-12 pt-12 border-t border-white/10 text-center">
+                <div class="mb-8">
+                    <h3 class="text-lg font-semibold text-white mb-3">Kurumsal İletişim</h3>
+                    <p class="text-gray-500 text-sm max-w-lg mx-auto mb-3 leading-relaxed">
+                        İhtiyaçlarınıza özel çözümlerimizle, işletmenizin potansiyelini en üst düzeye çıkarmak için bizimle iletişime geçin.
+                    </p>
+                    <p class="text-gray-400 mb-4"><a href="tel:+905544646006" class="hover:text-accent-lumos transition">+90 554 464 60 06</a></p>
+                    
+                </div>
+                <p class="text-gray-500 text-sm mt-8">© 2026 Lumos Sales. Tüm hakları saklıdır.</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Initialize GSAP ScrollTrigger
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Magnetic Scroll Implementation
+        function initMagneticScroll() {
+            const sections = document.querySelectorAll('.presentation-section, .feature-section');
+            let currentIndex = 0;
+            let isScrolling = false;
+            let lastScrollTime = 0;
+            const scrollDelay = 1000;
+
+            function scrollToSection(index) {
+                if (isScrolling || index < 0 || index >= sections.length) return;
+                if (Date.now() - lastScrollTime < scrollDelay) return;
+
+                isScrolling = true;
+                lastScrollTime = Date.now();
+                currentIndex = index;
+
+                const targetSection = sections[index];
+                const targetPosition = targetSection.offsetTop;
+
+                gsap.to(window, {
+                    scrollTo: targetPosition,
+                    duration: 1,
+                    ease: "power2.inOut",
+                    onComplete: () => {
+                        isScrolling = false;
+                    }
+                });
+            }
+
+            document.addEventListener('wheel', (e) => {
+                if (isScrolling) return;
+                if (e.deltaY > 0) {
+                    scrollToSection(currentIndex + 1);
+                } else if (e.deltaY < 0) {
+                    scrollToSection(currentIndex - 1);
+                }
+            }, { passive: true });
+
+            document.addEventListener('keydown', (e) => {
+                if (isScrolling) return;
+                if (e.key === 'ArrowDown' || e.key === ' ') {
+                    e.preventDefault();
+                    scrollToSection(currentIndex + 1);
+                } else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    scrollToSection(currentIndex - 1);
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initMagneticScroll();
+        });
+    </script>
+</body>
+
+</html>
